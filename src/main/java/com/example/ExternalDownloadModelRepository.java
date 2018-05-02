@@ -13,7 +13,7 @@ public class ExternalDownloadModelRepository {
     private static ResultSet resultSet = null;
     
 	
-	public static void save(ExternalDownloadModel externalDownloadModel) throws Exception {
+	public static void update(ExternalDownloadModel externalDownloadModel) throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager
@@ -21,19 +21,18 @@ public class ExternalDownloadModelRepository {
                             + "user=getdirec_verapax&password=verapax");
 
             statement = connect.createStatement();
-
+            String query = "update users set num_points = ? where first_name = ?";
+            
             preparedStatement = connect
-                    .prepareStatement("insert into  getdirec_verapaxforms.external_download_model values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    .prepareStatement("update getdirec_verapaxforms.external_download_model "
+                    		+ "set agree=?,last_update_time=?"
+                    		+"where external_id=?");
 
-            preparedStatement.setString(1, externalDownloadModel.getExternalId());
-            preparedStatement.setBoolean(2, externalDownloadModel.isAgree());
-            preparedStatement.setString(3, externalDownloadModel.getEmail());
-            preparedStatement.setString(4, externalDownloadModel.getEmailFrom());
-            preparedStatement.setString(5, externalDownloadModel.getFilePath());
-            preparedStatement.setString(6, externalDownloadModel.getFirstName());
-            preparedStatement.setString(7, externalDownloadModel.getFormCreateTime());
-            preparedStatement.setString(8, externalDownloadModel.getLastName());
-            preparedStatement.setString(9, externalDownloadModel.getLastUpdateTime());
+            
+            preparedStatement.setBoolean(1, externalDownloadModel.isAgree());
+            preparedStatement.setString(2, externalDownloadModel.getLastUpdateTime());
+            preparedStatement.setString(3, externalDownloadModel.getExternalId());
+            
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
