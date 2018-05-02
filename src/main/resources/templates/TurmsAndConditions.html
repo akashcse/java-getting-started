@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Terms and Conditions</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	// assign function to onclick property of checkbox
+	function check() {
+		var checkbox = document.getElementById('agree');
+		if (checkbox.checked != true) {
+			document.getElementById('download').style.visibility = 'hidden'; // hide
+		} else {
+			document.getElementById('download').style.visibility = 'visible'; // show
+		}
+	}
+</script>
+<!-- <script type="text/javascript">
+	$(document).on('submit', 'form', function() {
+		setTimeout(function() {
+			window.location = "/VerapaxForms/downloadoriginalfile";
+		}, 1000);
+	});
+</script> -->
+</head>
+<body>
+	<div
+		style="width: 300px; height: 150px; margin: 0 auto; padding-top: 10px;">
+		<img th:src="@{/verapaxLogo.png}" class="img-responsive img1"
+			alt="Responsive image" />
+	</div>
+	<div style="margin: 0px 30px 30px 30px;">
+		<form th:action="@{/downloadfile}" method="post"
+			th:object="${externalDownloadModel}">
+			<div class="form-group">
+				<label for="firstname">Firstname </label> <input
+					class="form-control" type="text" th:field="*{firstName}"
+					readonly="readonly" />
+			</div>
+			<div class="form-group">
+				<label for="lastname">Lastname </label> <input class="form-control"
+					type="text" th:field="*{lastName}" readonly="readonly" />
+			</div>
+			<div class="form-group">
+				<label for="email">Email </label> <input class="form-control"
+					type="email" th:field="*{email}" readonly="readonly" />
+			</div>
+			<div class="form-group">
+				<label for="referenceId">Reference ID </label> <input
+					class="form-control" type="text" th:field="*{externalId}"
+					readonly="readonly" />
+			</div>
+			<div class="form-group">
+				<label for="filename">Filename </label> <input class="form-control"
+					type="text" th:field="*{filePath}" readonly="readonly" />
+			</div>
+			<p>Terms and conditions</p>
+			<p>1. Terms and conditions 1</p>
+			<p>2. Terms and conditions 2</p>
+			<div class="form-check">
+				<input id="agree" onclick="check()"
+					style="margin: 0px 0px 0px 10px;" type="checkbox"
+					class="form-check-input" th:field="*{agree}" /> <label
+					class="form-check-label" for="agree">Agree with terms and
+					conditions </label>
+			</div>
+			<div class="form-group">
+				<button id="download" type="submit" name="action" value="download"
+					class="btn btn-primary" style="visibility: hidden;">Download</button>
+			</div>
+		</form>
+
+	</div>
+
+
+
+</body>
+</html>
